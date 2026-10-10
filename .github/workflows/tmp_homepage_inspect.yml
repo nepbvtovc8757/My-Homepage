@@ -16,12 +16,10 @@ jobs:
           - 2025-06-20-llm-adaptive-learning.md
           - 2025-07-01-optimizing-llms-contextual-reasoning.md
     steps:
-      - name: Check out task data
+      - name: Check out homepage
         uses: actions/checkout@v4
         with:
-          repository: hkust-nlp/Toolathlon
-          ref: 9be8d8fe07a497b18ee61e3f2ae694e9797f39eb
-          path: task-data
-      - name: Show publication fixture
-        working-directory: task-data
-        run: sed -n '1,80p' "tasks/finalpool/email-paper-homepage/files/pubs/${{ matrix.file }}"
+          repository: nepbvtovc8757/My-Homepage
+          ref: master
+      - name: Show publication
+        run: sed -n '1,80p' "_publications/${{ matrix.file }}"
