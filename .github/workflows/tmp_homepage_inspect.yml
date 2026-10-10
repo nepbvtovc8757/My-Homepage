@@ -7,19 +7,20 @@ on:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        file:
-          - 2024-05-15-enhancing-llms.md
-          - 2025-06-01-ipsum-lorem-all-you-need.md
-          - 2025-06-15-ipsum-lorem-workshop.md
-          - 2025-06-20-llm-adaptive-learning.md
-          - 2025-07-01-optimizing-llms-contextual-reasoning.md
     steps:
       - name: Check out homepage
         uses: actions/checkout@v4
         with:
           repository: nepbvtovc8757/My-Homepage
           ref: master
-      - name: Show publication
-        run: sed -n '1,80p' "_publications/${{ matrix.file }}"
+      - name: Verify publication statuses and code links
+        run: |
+          set -euo pipefail
+          grep -F "venue: 'Accepted at COML 2025 - Conference on Machine Learning (Oral presentation)'" _publications/2025-06-01-ipsum-lorem-all-you-need.md
+          grep -F "codeurl: 'https://github.com/nepbvtovc8757/ipsum-lorem-all-you-need'" _publications/2025-06-01-ipsum-lorem-all-you-need.md
+          grep -F "venue: 'Accepted at COML Workshop on Large Language Models (COMLW 2025)'" _publications/2025-06-15-ipsum-lorem-workshop.md
+          ! grep -F "codeurl:" _publications/2025-06-15-ipsum-lorem-workshop.md
+          grep -F "venue: 'Accepted at COAI 2025 - Conference on Artificial Intelligence'" _publications/2025-07-01-optimizing-llms-contextual-reasoning.md
+          ! grep -F "codeurl:" _publications/2025-07-01-optimizing-llms-contextual-reasoning.md
+          grep -F "codeurl: 'https://github.com/nepbvtovc8757/enhancing-llms'" _publications/2024-05-15-enhancing-llms.md
+          grep -F "codeurl: 'https://github.com/nepbvtovc8757/llm-adaptive-learning'" _publications/2025-06-20-llm-adaptive-learning.md
