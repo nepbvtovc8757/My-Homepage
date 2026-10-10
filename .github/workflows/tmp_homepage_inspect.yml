@@ -7,6 +7,14 @@ on:
 jobs:
   inspect:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file:
+          - 2024-05-15-enhancing-llms.md
+          - 2025-06-01-ipsum-lorem-all-you-need.md
+          - 2025-06-15-ipsum-lorem-workshop.md
+          - 2025-06-20-llm-adaptive-learning.md
+          - 2025-07-01-optimizing-llms-contextual-reasoning.md
     steps:
       - name: Check out task data
         uses: actions/checkout@v4
@@ -14,10 +22,6 @@ jobs:
           repository: hkust-nlp/Toolathlon
           ref: 9be8d8fe07a497b18ee61e3f2ae694e9797f39eb
           path: task-data
-      - name: Show publication fixtures
+      - name: Show publication fixture
         working-directory: task-data
-        run: |
-          for file in tasks/finalpool/email-paper-homepage/files/pubs/*.md; do
-            echo "===== ${file} ====="
-            sed -n '1,120p' "$file"
-          done
+        run: sed -n '1,80p' "tasks/finalpool/email-paper-homepage/files/pubs/${{ matrix.file }}"
