@@ -1,0 +1,23 @@
+name: Temporary Homepage Inspection
+on:
+  push:
+    branches:
+      - tmp-homepage-inspect
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out task data
+        uses: actions/checkout@v4
+        with:
+          repository: hkust-nlp/Toolathlon
+          ref: 9be8d8fe07a497b18ee61e3f2ae694e9797f39eb
+          path: task-data
+      - name: Show publication fixtures
+        working-directory: task-data
+        run: |
+          for file in tasks/finalpool/email-paper-homepage/files/pubs/*.md; do
+            echo "===== ${file} ====="
+            sed -n '1,120p' "$file"
+          done
